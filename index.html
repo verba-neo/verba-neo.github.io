@@ -1,6 +1,58 @@
-<h1>안녕하세요 verba-neo 입니다.</h1>
+<!-- 02-vfor.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <div>
+      <form @submit.prevent="addStudent">
+        <input type="text" required v-model="newStudent.name" placeholder="이름">
+        <input type="number" v-model="newStudent.account" placeholder="잔액">
+        <input type="number" min="20" max="100" v-model="newStudent.age" placeholder="나이">
+        <button>+</button>
+      </form>
 
-<p>
-    지금은 준비중입니다.
-    조만간 포트폴리오 페이지로 찾아 뵙겠습니다 :)
-</p>
+    </div>
+
+    <div v-for="student in students">
+      <h3>{{ student.name }} - {{ student.age }}</h3>
+      <p>{{ student.account }}</p>
+    </div>
+    
+  </div>
+</body>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script>
+  const { createApp } = Vue
+  const obj = {
+    data() {
+      return {
+        newStudent: {
+          name: null,
+          account: null,
+          age: null,
+        },
+        students: [
+          {name: '경민', account: 1000000000, age: 25},
+          {name: '호태', account: 80000000, age: 25},
+        ]
+      }
+    },
+    methods: {
+      addStudent() {
+        this.students.push(this.newStudent)
+        this.newStudent = { name: '', account: 0, age: 0, }
+      }
+    },
+  }
+  createApp(obj).mount('#app')
+
+
+  
+</script>
+</html>
